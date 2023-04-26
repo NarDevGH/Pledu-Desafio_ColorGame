@@ -12,23 +12,39 @@ let cantidadColores = 6
 let colors = randomColors(cantidadColores)
 let pickedColor = pickColor()
 
+let currentBackgroundColor = "brown"
+
 let resetButton = document.querySelector("button#reset") 
 resetButton.addEventListener("click", reset)
 
 easyButon.addEventListener("click", e =>{
-    easyButon.classList.add("selected")
-    hardButon.classList.remove("selected")
-
-    cantidadColores = 3
-    reset()
+    if(!easyButon.classList.contains("btn-success")){
+        easyButon.classList.remove("btn-outline-success")
+        hardButon.classList.remove("btn-danger")
+        easyButon.classList.add("btn-success")
+        hardButon.classList.add("btn-outline-danger")
+        
+        document.body.style = "background-color:darkgreen"
+        currentBackgroundColor = "darkgreen"
+    
+        cantidadColores = 3
+        reset()
+    }
 })
 
 hardButon.addEventListener("click",_=>{
-    hardButon.classList.add("selected")
-    easyButon.classList.remove("selected")
-
-    cantidadColores = 6
-    reset()
+    if(!hardButon.classList.contains("btn-danger")){
+        easyButon.classList.remove("btn-success")
+        hardButon.classList.remove("btn-outline-danger")
+        easyButon.classList.add("btn-outline-success")
+        hardButon.classList.add("btn-danger")
+        
+        document.body.style = "background-color:brown"
+        currentBackgroundColor = "brown"
+    
+        cantidadColores = 6
+        reset()
+    }
 })
 
 reset()
@@ -69,7 +85,7 @@ function onCuadradoClick(e){
         changeColors(pickedColor)
     }
     else{
-        button.style = `background-color: darkgreen` 
+        button.style = `background-color: ${currentBackgroundColor}` 
         mensaje.textContent = "Intentalo nuevamente"
     }
 }
@@ -89,7 +105,7 @@ function reset(){
             cuadrados[i].addEventListener("click", onCuadradoClick)
         }
         else{
-            cuadrados[i].style = "background-color: darkgreen" 
+            cuadrados[i].style = "visibility: hidden;opacity: 0;transition: .5s;"
         }
     }
 }
